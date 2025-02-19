@@ -88,7 +88,7 @@ const RenderMenu = ({menu}: {menu: Menu}) =>
         menu.parent && <div className='ml-[6px] h-[16px] w-[16px] border-l-[1px] border-b-[1px] border-black' />
       }
       <div>
-        <div className='flex gap-4 items-center cursor-pointer hover:underline group' onClick={() => dispatch(expandMenu({id: menu.id, status: !menu.expanded}))}>         
+        <div className='flex gap-4 items-center cursor-pointer hover:underline group pr-4' onClick={() => dispatch(expandMenu({id: menu.id, status: !menu.expanded}))}>         
           {
             (menu.children && (menu.children.length > 0)) &&
               (menu.expanded ?
@@ -102,7 +102,14 @@ const RenderMenu = ({menu}: {menu: Menu}) =>
           }}>
             {menu.name}
           </div>
-          <button onClick={() => dispatch(setSelectedMenu({...menu, isCreatingSubMenu: true}))} className='p-2 rounded-full bg-[#253BFF] hidden group-hover:block'>
+          <button 
+            onClick={(e) => 
+            {
+              e.stopPropagation()
+              dispatch(setSelectedMenu({...menu, isCreatingSubMenu: true}))
+            }} 
+            className='p-2 rounded-full bg-[#253BFF] hidden group-hover:block'
+          >
               <FaPlus color='white' size={12} />                
             </button>
         </div>

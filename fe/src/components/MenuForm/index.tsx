@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 import { toastError } from '@/libs/error-toaster'
 import Button from '../Button'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { deleteMenu, fetchMenus } from '@/redux/features/menu/menuSlice'
+import { deleteMenu, fetchMenus, setSelectedMenu } from '@/redux/features/menu/menuSlice'
 
 export default function MenuForm()
 {
@@ -71,6 +71,7 @@ export default function MenuForm()
 					reset()
 					toast.success('Succeed adding menu.')
 					dispatch(fetchMenus())
+					dispatch(setSelectedMenu(null))
 				})
 			}
 			else
@@ -86,7 +87,7 @@ export default function MenuForm()
 				.then(() => 
 				{
 					toast.success('Succeed updating menu.')
-					dispatch(fetchMenus())
+					dispatch(fetchMenus())					
 				})
 			}
     }
@@ -173,6 +174,7 @@ export default function MenuForm()
 					{
 						dispatch(deleteMenu({id: selectedMenu.id})).unwrap().then(() => dispatch(fetchMenus()))
 						reset()
+						dispatch(setSelectedMenu(null))
 					}} 
 					className='w-full bg-[red]'
 				>

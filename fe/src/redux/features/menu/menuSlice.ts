@@ -63,7 +63,16 @@ export const menuSlice = createSlice({
 		}
   },
 	extraReducers: (builder) => {
-    builder.addCase(fetchMenus.fulfilled, (state, action) => {
+    builder.addCase(fetchMenus.fulfilled, (state, action) => 
+		{
+			state.menus.forEach(menu =>
+			{
+				const index = action.payload.findIndex((newMenu: Menu) => newMenu.id == menu.id)
+
+				if(index != -1)
+					action.payload[index].expanded = menu.expanded
+			})
+
       state.menus = action.payload;
 			state.organizedMenus = organizeMenus(state.menus)
 
