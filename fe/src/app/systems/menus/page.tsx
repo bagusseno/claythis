@@ -86,7 +86,7 @@ const RenderMenu = ({menu}: {menu: Menu}) =>
         {
           menu.expanded &&
             <div>
-              {menu.children?.map(menu => <RenderMenu menu={menu} />)}
+              {menu.children?.map(menu => <RenderMenu key={menu.id} menu={menu} />)}
             </div>  
         }
       </div>
