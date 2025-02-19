@@ -85,7 +85,6 @@ export default function MenuForm()
 				.then(res => res.json())
 				.then(() => 
 				{
-					reset()
 					toast.success('Succeed updating menu.')
 					dispatch(fetchMenus())
 				})
