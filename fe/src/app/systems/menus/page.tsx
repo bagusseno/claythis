@@ -27,7 +27,11 @@ export default function MenusPage()
           Menu
         </div>
         <div className='flex gap-4 items-center'>
-          <select className='md:min-w-[256px]' onChange={e => dispatch(setSelectedRootMenu(organizedMenus.find(menu => menu.id == e.target.value) ?? null))}>
+          <select className='md:min-w-[256px]' onChange={e => 
+          {
+            dispatch(setSelectedRootMenu(organizedMenus.find(menu => menu.id == e.target.value) ?? null))
+            dispatch(setSelectedMenu(organizedMenus.find(menu => menu.id == e.target.value) ?? null))
+          }}>
             <option>None</option>
             {
               organizedMenus.filter(menu => !menu.parent).map(menu =>
