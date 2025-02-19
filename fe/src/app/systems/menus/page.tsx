@@ -56,7 +56,7 @@ export default function MenusPage()
                   </Button>
                 </div>
                 <div>
-                  <Button className='bg-white text-black border-[1px] border-black' onClick={() => dispatch(expandAll({status: false}))}>
+                  <Button className='bg-white !text-black border-[1px] border-black' onClick={() => dispatch(expandAll({status: false}))}>
                     Collapse all
                   </Button>
                 </div>
