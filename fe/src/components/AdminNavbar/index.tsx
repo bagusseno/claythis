@@ -2,7 +2,7 @@
 
 import { adminNav } from "@/config/nav";
 import Logo from "../Logo";
-import { CiCircleChevLeft, CiGrid41, CiMenuBurger } from 'react-icons/ci';
+import { CiGrid41, CiMenuBurger } from 'react-icons/ci';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { nav } from '@/types';
@@ -47,19 +47,18 @@ export default function AdminNavbar()
   return (
     <>
       <nav className={clsx(
-        'w-[256px] p-6 bg-foreground text-background absolute md:static left-0 top-0 bottom-0 rounded-[32px]',
+        'w-[256px] p-6 bg-foreground text-background fixed md:static left-0 top-0 bottom-0 md:rounded-[32px] md:static',
         isShowingMobileMenu ? 'block' : 'hidden lg:block'
       )}>
         <div className='flex justify-end block lg:hidden'>
           <button onClick={() => setIsShowingMobileMenu(false)}>
-            <CiCircleChevLeft size={32} />
+            <FaChevronLeft size={32} />
           </button>
         </div>
         <div className='pb-4 flex justify-between'>
           <div className='h-[21px]'>
             <Logo url={baseUrl('/admin')} />
           </div>
-          <FaChevronLeft />
         </div>
         <ul className='mt-4 font-semibold'>
           {

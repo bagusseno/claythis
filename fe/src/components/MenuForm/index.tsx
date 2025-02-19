@@ -103,7 +103,7 @@ export default function MenuForm()
   }
 
   return (
-    <Form onSubmit={(e) => e.preventDefault()} className='min-w-[512px]'>
+    <Form onSubmit={(e) => e.preventDefault()} className='md:min-w-[512px]'>
 			{
 				isUpdating &&
 					<>

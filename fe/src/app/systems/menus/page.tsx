@@ -27,7 +27,7 @@ export default function MenusPage()
           Menu
         </div>
         <div className='flex gap-4 items-center'>
-          <select className='min-w-[256px]' onChange={e => dispatch(setSelectedRootMenu(organizedMenus.find(menu => menu.id == e.target.value) ?? null))}>
+          <select className='md:min-w-[256px]' onChange={e => dispatch(setSelectedRootMenu(organizedMenus.find(menu => menu.id == e.target.value) ?? null))}>
             <option>None</option>
             {
               organizedMenus.filter(menu => !menu.parent).map(menu =>
@@ -45,10 +45,10 @@ export default function MenusPage()
           </div>
         </div>
       </div>
-      <div className='flex gap-16 mt-10'>        
+      <div className='flex gap-16 mt-10 flex-wrap'>        
         {
           selectedRootMenu &&
-            <div className='min-w-[256px]'>
+            <div className='md:min-w-[256px]'>
               <div className='flex gap-4'>
                 <div>
                   <Button className='bg-foreground text-white' onClick={() => dispatch(expandAll({status: true}))}>
@@ -61,7 +61,9 @@ export default function MenusPage()
                   </Button>
                 </div>
               </div>
-              <RenderMenu menu={selectedRootMenu} />
+              <div className='mt-6'>
+                <RenderMenu menu={selectedRootMenu} />
+              </div>
             </div>
         }
         <div>
