@@ -1,0 +1,9 @@
+.form :global(.form-row) {
+    @apply mb-4;
+}
+.form :global(.form-row):last-child {
+    margin-bottom: 0px;
+}
+.full-width input[type="text"], .full-width input[type="number"], .full-width :global(.form-row), .full-width button, .full-width select {
+    width: 100%;
+}
