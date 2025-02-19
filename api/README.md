@@ -27,9 +27,11 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Project setup
-
+1. Create a database using PostgreSQL
+2. Create an .env file from .env.example and adjust the DATABASE_URL and PORT, then run commands:
 ```bash
 $ yarn install
+$ npx prisma migrate dev --name init
 ```
 
 ## Compile and run the project
