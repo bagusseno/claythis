@@ -5,7 +5,6 @@ import { ReactNode } from 'react';
 import AdminNavbar from '../AdminNavbar';
 import { FaChevronLeft } from 'react-icons/fa6';
 import Link from 'next/link';
-import { CiGrid41 } from 'react-icons/ci';
 import { BsGridFill } from 'react-icons/bs';
 
 type props = {

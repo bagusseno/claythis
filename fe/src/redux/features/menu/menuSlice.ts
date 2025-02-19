@@ -77,7 +77,7 @@ const organizeMenus = (menus: Menu[]) =>
 		return [menu.id, menuWithChildren]
 	}));
 
-	const organizedMenus: any[] = [];
+	const organizedMenus: Menu[] = [];
 
 	menus.forEach(menu => 
 	{
@@ -96,7 +96,10 @@ const organizeMenus = (menus: Menu[]) =>
 				parentMenu.children?.push(subMenu);
 			}
 		} else {
-			organizedMenus.push(menuMap.get(menu.id));
+			const rootMenu = menuMap.get(menu.id)
+					
+			if(rootMenu)
+				organizedMenus.push(rootMenu);
 		}
 	});
 	

@@ -2,13 +2,13 @@
 
 import { adminNav } from "@/config/nav";
 import Logo from "../Logo";
-import { CiCircleChevLeft, CiGrid2H, CiGrid41, CiMenuBurger } from 'react-icons/ci';
+import { CiCircleChevLeft, CiGrid41, CiMenuBurger } from 'react-icons/ci';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { nav } from '@/types';
 import { baseUrl } from '@/libs/base-url';
 import Link from 'next/link';
-import { FaChevronLeft, FaFolder, FaRectangleList } from 'react-icons/fa6';
+import { FaChevronLeft, FaFolder } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation';
 
 export default function AdminNavbar() 

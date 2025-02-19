@@ -34,7 +34,7 @@ export async function DELETE(
 ) {
   const id = (await params).id
 
-  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menus/${id}`, {
+  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menus/${id}`, {
     method: 'DELETE', 
   })
   

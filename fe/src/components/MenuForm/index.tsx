@@ -1,8 +1,8 @@
 'use client'
 
 import Form, { FormRow, FormRowCaption, FormRowContent, FormRowLabel } from '../Form'
-import { Controller, useForm } from 'react-hook-form'
-import {  useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import {  useEffect } from 'react'
 import { Menu } from '@/types'
 import toast from 'react-hot-toast'
 import { toastError } from '@/libs/error-toaster'
@@ -62,7 +62,7 @@ export default function MenuForm()
 					}
 				})
 				.then(res => res.json())
-				.then((json: Menu) => 
+				.then(() => 
 				{
 					reset()
 					toast.success('Succeed adding menu.')
@@ -137,7 +137,7 @@ export default function MenuForm()
 							None
 						</option>
 						{menus.map(menu => (
-							<option value={menu.id}>
+							<option key={menu.id} value={menu.id}>
 								{menu.name}
 							</option>
 						))}

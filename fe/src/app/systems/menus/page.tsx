@@ -31,7 +31,7 @@ export default function MenusPage()
             {
               organizedMenus.filter(menu => !menu.parent).map(menu =>
               (
-                <option value={menu.id}>
+                <option key={menu.id} value={menu.id}>
                   {menu.name}
                 </option>
               ))
@@ -48,7 +48,7 @@ export default function MenusPage()
         {
           selectedRootMenu &&
             <div>
-              {renderMenu(selectedRootMenu)}
+              <RenderMenu menu={selectedRootMenu} />
             </div>
         }
         <div>
@@ -59,12 +59,12 @@ export default function MenusPage()
   )
 }
 
-const renderMenu = (menu: Menu) =>
+const RenderMenu = ({menu}: {menu: Menu}) =>
 {
   const dispatch = useAppDispatch()
   
   return (
-    <div className='flex gap-4'>
+    <div key={menu.id} className='flex gap-4'>
       {
         menu.parent && <div className='ml-[6px] h-[16px] w-[16px] border-l-[1px] border-b-[1px] border-black' />
       }
@@ -86,7 +86,7 @@ const renderMenu = (menu: Menu) =>
         {
           menu.expanded &&
             <div>
-              {menu.children?.map(menu => renderMenu(menu))}
+              {menu.children?.map(menu => <RenderMenu menu={menu} />)}
             </div>  
         }
       </div>
