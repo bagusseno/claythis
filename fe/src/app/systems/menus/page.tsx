@@ -1,8 +1,9 @@
 'use client'
 
 import AdminLayout from '@/components/AdminLayout';
+import Button from '@/components/Button';
 import MenuForm from '@/components/MenuForm';
-import { expandMenu, fetchMenus, setSelectedMenu, setSelectedRootMenu } from '@/redux/features/menu/menuSlice';
+import { expandAll, expandMenu, fetchMenus, setSelectedMenu, setSelectedRootMenu } from '@/redux/features/menu/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Menu } from '@/types';
 import { useEffect } from 'react';
@@ -44,10 +45,22 @@ export default function MenusPage()
           </div>
         </div>
       </div>
-      <div className='flex gap-16 mt-10'>
+      <div className='flex gap-16 mt-10'>        
         {
           selectedRootMenu &&
-            <div>
+            <div className='min-w-[256px]'>
+              <div className='flex gap-4'>
+                <div>
+                  <Button className='bg-foreground text-white' onClick={() => dispatch(expandAll({status: true}))}>
+                    Expand all
+                  </Button>
+                </div>
+                <div>
+                  <Button className='bg-white text-black border-[1px] border-black' onClick={() => dispatch(expandAll({status: false}))}>
+                    Collapse all
+                  </Button>
+                </div>
+              </div>
               <RenderMenu menu={selectedRootMenu} />
             </div>
         }
@@ -69,11 +82,7 @@ const RenderMenu = ({menu}: {menu: Menu}) =>
         menu.parent && <div className='ml-[6px] h-[16px] w-[16px] border-l-[1px] border-b-[1px] border-black' />
       }
       <div>
-        <div className='flex gap-4 items-center cursor-pointer hover:underline' onClick={() => 
-        {
-          dispatch(expandMenu({id: menu.id, status: !menu.expanded}))
-          dispatch(setSelectedMenu(menu))
-        }}>        
+        <div className='flex gap-4 items-center cursor-pointer hover:underline group' onClick={() => dispatch(expandMenu({id: menu.id, status: !menu.expanded}))}>         
           {
             (menu.children && (menu.children.length > 0)) &&
               (menu.expanded ?
@@ -81,7 +90,15 @@ const RenderMenu = ({menu}: {menu: Menu}) =>
               :
                 <FaChevronDown size={12} />)
           }
-          {menu.name}
+          <div onClick={() => 
+          {            
+            dispatch(setSelectedMenu({...menu, isCreatingSubMenu: false}))
+          }}>
+            {menu.name}
+          </div>
+          <button onClick={() => dispatch(setSelectedMenu({...menu, isCreatingSubMenu: true}))} className='p-2 rounded-full bg-[#253BFF] hidden group-hover:block'>
+              <FaPlus color='white' size={12} />                
+            </button>
         </div>
         {
           menu.expanded &&

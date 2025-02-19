@@ -1,5 +1,6 @@
 import { Menu } from '@/types'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import toast from 'react-hot-toast'
 
 interface MenuState {
 	menus: Menu[]
@@ -22,6 +23,13 @@ export const fetchMenus = createAsyncThunk("menus/get", async () => {
   return json;
 });
 
+export const deleteMenu = createAsyncThunk<Boolean, {id: string}>("menus/delete", async (data) => {
+	// Here you can use axios with your own api
+	await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/menus/${data?.id}`, {method: 'DELETE'})
+	toast.success('Succeed deleting menu.')
+	return true;
+  });
+
 export const menuSlice = createSlice({
   name: 'menu',
   initialState,
@@ -43,6 +51,15 @@ export const menuSlice = createSlice({
 			state.menus[menuIndex].expanded = action.payload.status
 			state.organizedMenus = organizeMenus(state.menus)
 			state.selectedRootMenu = state.organizedMenus.find(menu => menu.id == state.selectedRootMenu?.id) ?? state.selectedRootMenu
+		},
+		expandAll: (state, action) =>
+		{
+			state.menus.forEach(menu =>
+			{
+				menu.expanded = action.payload.status
+				state.organizedMenus = organizeMenus(state.menus)
+				state.selectedRootMenu = state.organizedMenus.find(menu => menu.id == state.selectedRootMenu?.id) ?? state.selectedRootMenu
+			})
 		}
   },
 	extraReducers: (builder) => {
@@ -56,11 +73,11 @@ export const menuSlice = createSlice({
 				state.selectedRootMenu = state.organizedMenus.find(menu => menu.id == state.selectedRootMenu?.id) ?? state.selectedRootMenu
 			}
     })
-  }
+	}
 })
 
 // Action creators are generated for each case reducer function
-export const { setSelectedMenu, setSelectedRootMenu, expandMenu } = menuSlice.actions
+export const { setSelectedMenu, setSelectedRootMenu, expandMenu, expandAll } = menuSlice.actions
 
 export default menuSlice.reducer
 
@@ -97,7 +114,7 @@ const organizeMenus = (menus: Menu[]) =>
 			}
 		} else {
 			const rootMenu = menuMap.get(menu.id)
-					
+
 			if(rootMenu)
 				organizedMenus.push(rootMenu);
 		}

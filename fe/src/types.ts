@@ -22,4 +22,5 @@ export type Menu = {
 	expanded?: boolean
 	children?: Menu[]
 	depth?: number
+	isCreatingSubMenu?: boolean
 }

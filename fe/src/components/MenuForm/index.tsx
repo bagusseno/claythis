@@ -8,17 +8,18 @@ import toast from 'react-hot-toast'
 import { toastError } from '@/libs/error-toaster'
 import Button from '../Button'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { fetchMenus } from '@/redux/features/menu/menuSlice'
+import { deleteMenu, fetchMenus } from '@/redux/features/menu/menuSlice'
 
 export default function MenuForm()
 {
   const { setValue, register, trigger, getValues, reset, formState } = useForm<Menu>({mode: 'all'})
 	const {menus, selectedMenu} = useAppSelector(state => state.menu)
 	const dispatch = useAppDispatch()
+	const isUpdating = selectedMenu && !selectedMenu?.isCreatingSubMenu
 
 	useEffect(() =>
 	{
-		if(selectedMenu)
+		if(isUpdating)
 		{
 			setValue('name', selectedMenu.name)
 			setValue('children', selectedMenu.children)
@@ -29,6 +30,9 @@ export default function MenuForm()
 		else
 		{
 			reset()
+
+			if(selectedMenu?.isCreatingSubMenu)
+				setValue('parent_id', selectedMenu.id)
 		}
 
 	}, [selectedMenu])
@@ -52,7 +56,7 @@ export default function MenuForm()
 
     try 
     {
-      if(!selectedMenu)
+      if(!isUpdating)
 			{
 				fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/menus`, {
 					method: 'POST',
@@ -91,7 +95,7 @@ export default function MenuForm()
     {
       console.error(e)
       
-      if(!selectedMenu)
+      if(!isUpdating)
         toastError('Failed adding menu!', e)
       else
         toastError('Failed updating menu!', e)
@@ -101,7 +105,7 @@ export default function MenuForm()
   return (
     <Form onSubmit={(e) => e.preventDefault()} className='min-w-[512px]'>
 			{
-				selectedMenu &&
+				isUpdating &&
 					<>
 						<FormRow>
 							<FormRowLabel>
@@ -159,10 +163,22 @@ export default function MenuForm()
         }
       </FormRow>
       <FormRow submit>
-        <FormRowContent className='flex gap-4 justify-end'>
+        <FormRowContent className='flex gap-4 justify-between'>
           <Button onClick={() => submit()} className='w-full'>
-            {selectedMenu ? 'Save' : 'Create'}
-          </Button>
+            {isUpdating ? 'Save' : 'Create'}
+		</Button>
+		  {
+			isUpdating &&
+				<Button 
+					onClick={() => 
+					{
+						dispatch(deleteMenu({id: selectedMenu.id})).unwrap().then(() => dispatch(fetchMenus()))
+					}} 
+					className='w-full bg-[red]'
+				>
+					Delete
+				</Button>
+		  }
         </FormRowContent>
       </FormRow>
     </Form>
