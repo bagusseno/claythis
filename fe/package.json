@@ -6,12 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start-prod": "./node_modules/.bin/pm2 start npm --name fe -- start",
+    "reload-prod": "./node_modules/.bin/pm2 reload fe",
+    "stop-prod": "./node_modules/.bin/pm2 stop fe"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
     "clsx": "^2.1.1",
     "next": "^14.2.24",
+    "pm2": "^5.4.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.54.2",
