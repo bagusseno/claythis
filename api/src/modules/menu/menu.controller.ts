@@ -29,7 +29,7 @@ export class MenuController {
 
   @Delete('menus/:id')
   async deleteMenu(
-    @Param() id: string
+    @Param('id') id: string
   )
   {
     return this.menuService.deleteMenu({id});

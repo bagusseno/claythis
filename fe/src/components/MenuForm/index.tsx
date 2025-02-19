@@ -172,6 +172,7 @@ export default function MenuForm()
 					onClick={() => 
 					{
 						dispatch(deleteMenu({id: selectedMenu.id})).unwrap().then(() => dispatch(fetchMenus()))
+						reset()
 					}} 
 					className='w-full bg-[red]'
 				>
