@@ -23,7 +23,7 @@ export const fetchMenus = createAsyncThunk("menus/get", async () => {
   return json;
 });
 
-export const deleteMenu = createAsyncThunk<Boolean, {id: string}>("menus/delete", async (data) => {
+export const deleteMenu = createAsyncThunk<boolean, {id: string}>("menus/delete", async (data) => {
 	// Here you can use axios with your own api
 	await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/menus/${data?.id}`, {method: 'DELETE'})
 	toast.success('Succeed deleting menu.')
