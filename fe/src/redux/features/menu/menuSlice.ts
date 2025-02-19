@@ -69,7 +69,7 @@ export const menuSlice = createSlice({
 			{
 				const index = action.payload.findIndex((newMenu: Menu) => newMenu.id == menu.id)
 
-				if(index != -1)
+				if(action.payload[index])
 					action.payload[index].expanded = menu.expanded
 			})
 

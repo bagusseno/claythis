@@ -6,6 +6,7 @@ import MenuForm from '@/components/MenuForm';
 import { expandAll, expandMenu, fetchMenus, setSelectedMenu, setSelectedRootMenu } from '@/redux/features/menu/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Menu } from '@/types';
+import clsx from 'clsx';
 import { useEffect } from 'react';
 import { FaChevronDown, FaChevronUp, FaPlus } from 'react-icons/fa6';
 
@@ -85,7 +86,7 @@ const RenderMenu = ({menu}: {menu: Menu}) =>
   return (
     <div key={menu.id} className='flex gap-4'>
       {
-        menu.parent && <div className='ml-[6px] h-[16px] w-[16px] border-l-[1px] border-b-[1px] border-black' />
+        menu.parent && <div className={clsx('ml-[6px] h-[16px] border-l-[1px] border-b-[1px] border-black', (menu.children?.length && menu.children?.length > 0) ? 'w-[16px]' : 'w-[44px]')} />
       }
       <div>
         <div className='flex gap-4 items-center cursor-pointer hover:underline group pr-4' onClick={() => dispatch(expandMenu({id: menu.id, status: !menu.expanded}))}>         
